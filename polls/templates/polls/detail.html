@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Specific Question</title>
+</head>
+
+<body>
+
+  <form action="{% url 'polls:vote' question.id %}" method="post">
+    {% csrf_token %}
+    <fieldset>
+      <legend>
+        <h1>{{question.question_text}}</h1>
+      </legend>
+
+      {% if error_message %}
+      <p><strong>{{error_message}}</strong></p>
+      {% endif %}
+
+      {% for choice in question.choice_set.all %}
+      <input type="radio" name="choice" id="choice{{forloop.counter}}" value="{{choice.id}}">
+      <label for="choice{{forloop.counter}}">{{choice.choice_text}}</label>
+      {% endfor %}
+
+      <div>
+        <input type="submit" value="Vote">
+      </div>
+    </fieldset>
+  </form>
+
+
+  <!--   <form>
+    <fieldset>
+      <legend>
+        <h1>What your favorite language?</h1>
+      </legend>
+      <p><strong>Error message, you did not select</strong></p>
+
+      <input type="radio" name="choice" id="choice1">
+      <label for="choice1">English</label>
+      <input type="radio" name="choice" id="choice2">
+      <label for="choice2">Malay</label>
+      <input type="radio" name="choice" id="choice3">
+      <label for="choice3">Mandarin</label>
+    </fieldset>
+  </form> -->
+</body>
+
+</html>
