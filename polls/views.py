@@ -5,23 +5,6 @@ from django.urls import reverse
 
 from .models import Question, Choice
 
-# Create your views here.
-""" def index(request):
-  question_list = Question.objects.order_by('pub_date')
-  output = ', '.join(q.question_text for q in question_list)
-  return HttpResponse(output); """
-  # return HttpResponse('Hello, world. You\'re at the polls index.');
-
-
-""" def index(request):
-  question_list = Question.objects.order_by('pub_date')[:5]
-  questionTemplate = loader.get_template('polls/question.html')
-  context = {
-    'question_list': question_list
-  }
-  return HttpResponse(questionTemplate.render(context, request)); """
-
-
 def index(request):
   question_list = Question.objects.order_by('pub_date')[:5]
   context = {
@@ -32,14 +15,13 @@ def index(request):
 
 def detail(request, question_id):
    question = get_object_or_404(Question, id=question_id)
-   return render(request, 'polls/detail.html', {'question':question})
+   choice = question.choice_set.all();
+   return render(request, 'polls/detail.html', {'question':question, 'choice':choice})
 
 
 def vote(request, question_id):
   question = get_object_or_404(Question, id=question_id)
-  print(request.POST)
   try:
-    print(request.POST)
     selected_choice = question.choice_set.get(id=request.POST['choice'])
   except(KeyError, Choice.DoesNotExist):
     return render(request, 'polls/detail.html', {

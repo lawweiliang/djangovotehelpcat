@@ -10,6 +10,7 @@
 
 <body>
 
+  {% if question_list %}
   <h2>Questions</h2>
 
   <ul>
@@ -19,6 +20,10 @@
     </a>
     {% endfor %}
   </ul>
+  {% else %}
+  <h2>Database have no question.</h2>
+  {% endif %}
+
 
 
 

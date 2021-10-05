@@ -9,7 +9,7 @@
 </head>
 
 <body>
-
+  {% if choice %}
   <form action="{% url 'polls:vote' question.id %}" method="post">
     {% csrf_token %}
     <fieldset>
@@ -31,7 +31,9 @@
       </div>
     </fieldset>
   </form>
-
+  {% else %}
+  <h1>Question does not have choice.</h1>
+  {% endif %}
 
   <!--   <form>
     <fieldset>
